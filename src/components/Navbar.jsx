@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logoicon.png";
-import { BookOpen, Home, ShoppingCart, UserPlus } from "lucide-react";
+import { ShoppingCart, UserPlus } from "lucide-react";
 
 export default function Navbar() {
   return (
@@ -15,14 +15,17 @@ export default function Navbar() {
         <div className="flex items-center space-x-5">
           <Link
             to="/cart"
-            className="flex items-center space-x-1 text-gray-700 hover:text-black transition"
+            className="text-gray-700 hover:text-black transition"
+            title="Cart"
           >
-            <ShoppingCart size={20} />
-            <span>Cart</span>
+            <ShoppingCart size={22} />
           </Link>
-          <Link to="/signup" className="flex gap-1.5 items-center">
-            <UserPlus size={18} />
-            <span>Sign-up</span>
+          <Link
+            to="/signup"
+            className="text-gray-700 hover:text-black transition"
+            title="Sign Up"
+          >
+            <UserPlus size={22} />
           </Link>
         </div>
       </div>

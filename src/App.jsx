@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import SignUpForm from "./components/SignUpForm";
 import LoginForm from "./components/LoginForm";
+import BooksPage from "./components/BooksPage";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/signup" element={<SignUpForm />} />
         <Route path="/login" element={<LoginForm />} />
       </Routes>
+      <BooksPage />
     </>
   );
 }
