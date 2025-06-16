@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import BP1 from "../assets/Book1.png";
 import BP2 from "../assets/Book2.png";
@@ -46,6 +46,7 @@ export default function CartPage({ cartQuantities, handleAdd, handleRemove }) {
       ...book,
       quantity: cartQuantities[book.id],
     }));
+  console.log(cartItems);
 
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -61,12 +62,15 @@ export default function CartPage({ cartQuantities, handleAdd, handleRemove }) {
       {cartItems.length === 0 ? (
         <div className="text-center text-gray-600">
           <p>Your cart is empty.</p>
-          <button
-            onClick={() => navigate("/books")}
-            className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-full hover:scale-105 transition"
-          >
-            Browse Books
-          </button>
+          <Link to="/">
+            {" "}
+            <button
+              onClick={() => navigate("/books")}
+              className="mt-4 bg-gradient-to-r from-[#43C6AC] to-[#2B5876] text-white px-6 py-2 rounded-full hover:scale-105 transition"
+            >
+              Browse Books
+            </button>
+          </Link>
         </div>
       ) : (
         <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-xl p-6">

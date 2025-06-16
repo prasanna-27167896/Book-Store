@@ -191,7 +191,6 @@ export default function Books({
         Explore our curated collection spanning genres and perspectives
       </p>
 
-      {/* Filters */}
       <div className="mb-8 max-w-[1200px] mx-auto">
         <div className="flex justify-between items-center mb-4">
           <input
@@ -234,7 +233,6 @@ export default function Books({
         </div>
       </div>
 
-      {/* Book Grid */}
       <div className="grid grid-cols-4 gap-6 max-w-[1200px] mx-auto">
         {filteredBooks.map((book) => (
           <div
@@ -260,7 +258,7 @@ export default function Books({
                 ₹{book.price.toFixed(2)}
               </span>
               {cartQuantities[book.id] ? (
-                <div className="flex items-center gap-2 bg-blue-700 text-white px-3 py-1 rounded-full shadow">
+                <div className="flex items-center gap-2 bg-gradient-to-r from-[#43C6AC] to-[#2B5876] text-white px-3 py-1 rounded-full shadow">
                   <button onClick={() => handleRemove(book.id)}>−</button>
                   <span>{cartQuantities[book.id]}</span>
                   <button onClick={() => handleAdd(book.id)}>＋</button>
@@ -268,7 +266,7 @@ export default function Books({
               ) : (
                 <button
                   onClick={() => handleAdd(book.id)}
-                  className="bg-blue-700 text-white px-4 py-1 rounded-full hover:scale-105 transition"
+                  className="bg-gradient-to-r from-[#43C6AC] to-[#2B5876] text-white px-4 py-1 rounded-full hover:scale-105 transition"
                 >
                   Add to Cart
                 </button>
@@ -277,16 +275,6 @@ export default function Books({
           </div>
         ))}
       </div>
-
-      {/* Floating cart button */}
-      {Object.keys(cartQuantities).length > 0 && (
-        <button
-          onClick={() => navigate("/cart")}
-          className="fixed top-6 right-10 bg-white p-3 rounded-full shadow hover:scale-105 transition"
-        >
-          <ShoppingBag size={24} />
-        </button>
-      )}
     </div>
   );
 }

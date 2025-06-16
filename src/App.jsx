@@ -25,9 +25,11 @@ export default function App() {
     });
   };
 
+  console.log(cartQuantities);
+
   return (
     <>
-      <Navbar cartQuantities={cartQuantities} />
+      <Navbar />
       <Routes>
         <Route
           path="/"
