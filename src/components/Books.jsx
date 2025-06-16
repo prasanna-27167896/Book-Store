@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ShoppingBag, Star } from "lucide-react";
+
 import BP1 from "../assets/Book1.png";
 import BP2 from "../assets/Book2.png";
 import BP3 from "../assets/Book3.png";
@@ -17,11 +19,15 @@ import BP14 from "../assets/BP14.png";
 import BP15 from "../assets/BP15.png";
 import BP16 from "../assets/BP16.png";
 
-export default function Books() {
+export default function Books({
+  cartQuantities = {},
+  handleAdd,
+  handleRemove,
+}) {
+  const navigate = useNavigate();
   const [genre, setGenre] = useState("All Genres");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("Title");
-  const [cartQuantities, setCartQuantities] = useState({});
 
   const books = [
     {
@@ -176,15 +182,6 @@ export default function Books() {
       return 0;
     });
 
-  const handleAdd = (id) =>
-    setCartQuantities((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
-  const handleRemove = (id) =>
-    setCartQuantities((prev) => {
-      const updated = { ...prev, [id]: (prev[id] || 1) - 1 };
-      if (updated[id] <= 0) delete updated[id];
-      return updated;
-    });
-
   return (
     <div className="min-h-screen bg-[#f4fbfb] py-20 px-12">
       <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
@@ -194,6 +191,7 @@ export default function Books() {
         Explore our curated collection spanning genres and perspectives
       </p>
 
+      {/* Filters */}
       <div className="mb-8 max-w-[1200px] mx-auto">
         <div className="flex justify-between items-center mb-4">
           <input
@@ -236,7 +234,7 @@ export default function Books() {
         </div>
       </div>
 
-   
+      {/* Book Grid */}
       <div className="grid grid-cols-4 gap-6 max-w-[1200px] mx-auto">
         {filteredBooks.map((book) => (
           <div
@@ -252,56 +250,43 @@ export default function Books() {
               {book.title}
             </h3>
             <p className="text-sm text-gray-500 mb-1">by {book.author}</p>
-
             <div className="flex items-center text-yellow-500 text-sm mb-2">
-              {book.rating ? (
-                <>
-                  <Star className="w-4 h-4 fill-current mr-1" />
-                  <span className="text-gray-800 font-medium">
-                    ({book.rating})
-                  </span>
-                </>
-              ) : (
-                <span className="text-yellow-700 font-semibold">(N/A)</span>
-              )}
+              <Star className="w-4 h-4 fill-current mr-1" />
+              <span className="text-gray-800 font-medium">({book.rating})</span>
             </div>
-
-            <p className="text-sm text-gray-600 mb-4">
-              {book.description || "No description available."}
-            </p>
-
+            <p className="text-sm text-gray-600 mb-4">₹{book.price}</p>
             <div className="flex justify-between items-center mt-auto">
               <span className="text-blue-700 font-bold text-lg">
                 ₹{book.price.toFixed(2)}
               </span>
               {cartQuantities[book.id] ? (
-                <div className="flex items-center space-x-2 bg-gradient-to-r from-blue-700 to-teal-500 text-white px-3 py-1 rounded-full shadow-md">
-                  <button
-                    onClick={() => handleRemove(book.id)}
-                    className="text-lg font-bold"
-                  >
-                    −
-                  </button>
-                  <span className="text-sm">{cartQuantities[book.id]}</span>
-                  <button
-                    onClick={() => handleAdd(book.id)}
-                    className="text-lg font-bold"
-                  >
-                    ＋
-                  </button>
+                <div className="flex items-center gap-2 bg-blue-700 text-white px-3 py-1 rounded-full shadow">
+                  <button onClick={() => handleRemove(book.id)}>−</button>
+                  <span>{cartQuantities[book.id]}</span>
+                  <button onClick={() => handleAdd(book.id)}>＋</button>
                 </div>
               ) : (
                 <button
                   onClick={() => handleAdd(book.id)}
-                  className="bg-gradient-to-r from-blue-700 to-teal-500 text-white p-2 rounded-full shadow-md hover:scale-105 transition"
+                  className="bg-blue-700 text-white px-4 py-1 rounded-full hover:scale-105 transition"
                 >
-                  <ShoppingBag size={18} />
+                  Add to Cart
                 </button>
               )}
             </div>
           </div>
         ))}
       </div>
+
+      {/* Floating cart button */}
+      {Object.keys(cartQuantities).length > 0 && (
+        <button
+          onClick={() => navigate("/cart")}
+          className="fixed top-6 right-10 bg-white p-3 rounded-full shadow hover:scale-105 transition"
+        >
+          <ShoppingBag size={24} />
+        </button>
+      )}
     </div>
   );
 }

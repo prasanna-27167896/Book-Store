@@ -1,12 +1,12 @@
 import React from "react";
-import Navbar from "./Navbar";
 import Books from "./Books";
 
-export default function BooksPage() {
+export default function BooksPage({ cartQuantities, handleAdd, handleRemove }) {
   return (
-    <>
-      <Navbar />
-      <Books />
-    </>
+    <Books
+      cartQuantities={cartQuantities}
+      handleAdd={handleAdd}
+      handleRemove={handleRemove}
+    />
   );
 }
