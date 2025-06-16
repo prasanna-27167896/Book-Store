@@ -29,7 +29,7 @@ export default function App() {
 
   return (
     <>
-      <Navbar />
+      <Navbar cartQuantities={cartQuantities} />
       <Routes>
         <Route
           path="/"
